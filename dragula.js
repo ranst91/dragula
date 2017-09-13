@@ -28,6 +28,7 @@ function dragula (initialContainers, options) {
 
   var o = options || {};
   if (o.moves === void 0) { o.moves = always; }
+  if (o.dragDefinition === void 0) { o.dragDefinition = 5; }
   if (o.accepts === void 0) { o.accepts = always; }
   if (o.invalid === void 0) { o.invalid = invalidTarget; }
   if (o.containers === void 0) { o.containers = initialContainers || []; }
@@ -125,6 +126,9 @@ function dragula (initialContainers, options) {
     }
     // truthy check fixes #239, equality fixes #207
     if (e.clientX !== void 0 && e.clientX === _moveX && e.clientY !== void 0 && e.clientY === _moveY) {
+      return;
+    }
+    if ((_moveX - e.clientX) < o.dragDefinition && (_moveY - e.clientY) < o.dragDefinition) {
       return;
     }
     if (o.ignoreInputTextSelection) {
